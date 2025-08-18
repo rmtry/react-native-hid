@@ -1,0 +1,9 @@
+{
+  "name": "react-native-hid",
+  "version": "0.0.1",
+  "description": "Native C++ Module for React Native MacOS and Windows (0.78)",
+  "main": "index.js",
+  "repository": "git@github.com:rmtry/react-native-hid.git",
+  "author": "hoang_lp_97@yahoo.com",
+  "license": "MIT"
+}
