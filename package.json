@@ -5,5 +5,19 @@
   "main": "index.js",
   "repository": "git@github.com:rmtry/react-native-hid.git",
   "author": "hoang_lp_97@yahoo.com",
-  "license": "MIT"
+  "license": "MIT",
+  "files": [
+    "src/**/*",
+    "macos/**/*",
+    "windows/**/*",
+    "cpp/**/*",
+    "third-party/hidapi/**/*",
+    "react-native-hid.podspec",
+    "react-native.config.js"
+  ],
+  "peerDependencies": {
+    "react-native": "*",
+    "react-native-macos": "*",
+    "react-native-windows": "*"
+  }
 }

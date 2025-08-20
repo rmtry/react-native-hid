@@ -1,21 +1,25 @@
 #pragma once
+#include <cstdint>
 #include <string>
 #include <vector>
-#include <cstdint>
 
 namespace hidcore {
 
 struct DeviceInfo {
   uint16_t vendorId = 0;
   uint16_t productId = 0;
-  std::string path;           // OS-specific path
-  std::string manufacturer;   // UTF-8
-  std::string product;        // UTF-8
-  std::string serialNumber;   // UTF-8
   uint16_t usagePage = 0;
   uint16_t usage = 0;
+  std::string path;
+  std::string manufacturer;
+  std::string product;
+  std::string serialNumber;
 };
 
-std::vector<DeviceInfo> listAllDevices();
+// Call once when your module starts (or lazily inside listAllDevices)
+void init();       // idempotent, thread-safe
+void shutdown();   // safe; balances init()
+
+std::vector<DeviceInfo> listAllDevices();  // thread-safe
 
 } // namespace hidcore

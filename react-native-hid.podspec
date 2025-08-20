@@ -1,34 +1,40 @@
 # react-native-hid.podspec
-require 'json'
-
-package = JSON.parse(File.read(File.join(__dir__, 'package.json')))
-
 Pod::Spec.new do |s|
   s.name         = 'react-native-hid'
-  s.version      = package['version']
-  s.summary      = 'Cross-platform HID for React Native (macOS/Windows)'
+  s.version      = '0.1.0'
+  s.summary      = 'Cross-platform HID for React Native'
   s.license      = { :type => 'MIT' }
+  s.source       = { :path => '.' }
   s.authors      = { 'You' => 'you@example.com' }
   s.homepage     = 'https://github.com/rmtry/react-native-hid.git'
-  s.source       = { :git => 'https://github.com/rmtry/react-native-hid.git', :tag => s.version }
+#   s.source       = { :git => 'https://github.com/rmtry/react-native-hid.git', :tag => s.version }
 
-  s.platforms    = { :osx => '10.14' }      # <-- macOS target
+  # macOS support
+  s.platforms = { :osx => '10.14' }  # or higher
+
+  # Your sources
   s.source_files = [
     'macos/**/*.{h,m,mm}',
-    'cpp/src/**/*.{h,hh,hpp,c,cc,cpp,mm}',
-    'third_party/hidapi/mac/hid.c'
+    'cpp/src/**/*.{h,hpp,hh,c,cc,cpp,mm}',
+    'third-party/hidapi/hidapi.h',
+    'third-party/hidapi/mac/*.c'
+  ]
+  
+  s.public_header_files = [
+    'cpp/include/**/*.{h,hpp,hh}',
+    'third-party/hidapi/hidapi.h'
   ]
   s.header_mappings_dir = 'cpp/include'
 
-  # C++17 and header search paths for the core/hidapi
+  # React dependency so <React/RCTBridgeModule.h> resolves
+  s.dependency 'React-Core'
+
+  # C++ + includes for your core/hidapi
   s.pod_target_xcconfig = {
     'CLANG_CXX_LANGUAGE_STANDARD' => 'gnu++17',
     'HEADER_SEARCH_PATHS' => '"$(PODS_TARGET_SRCROOT)/cpp/include" "$(PODS_TARGET_SRCROOT)/third_party/hidapi"'
   }
 
-  # Link the Apple frameworks hidapi/mac needs
+  # macOS frameworks used by hidapi mac backend
   s.frameworks = 'IOKit', 'CoreFoundation'
-
-  # React Native (macOS) pods are resolved by the app; you generally
-  # don’t need to declare them here for autolinking to work.
 end
